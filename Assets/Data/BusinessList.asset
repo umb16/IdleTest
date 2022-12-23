@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b47a013742d8ca4a880bc7c0ab1972a, type: 3}
+  m_Name: BusinessList
+  m_EditorClassIdentifier: 
+  BusinessDatas:
+  - {fileID: 11400000, guid: ab9dd1a54ed2db24c8937a972b673807, type: 2}
+  - {fileID: 11400000, guid: eabd92bfa15cb3f4db22b6a0f0f7415f, type: 2}
+  - {fileID: 11400000, guid: a4f00646efceff348b70db7a03696966, type: 2}
+  - {fileID: 11400000, guid: 0c87518c9e85ddc45ac41d73901b63ce, type: 2}
+  - {fileID: 11400000, guid: 7c49876de29045f4aa1e0a029dfd01e4, type: 2}

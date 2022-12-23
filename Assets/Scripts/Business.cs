@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Bussines
+public class Business
 {
     private int _baseLevelUpCost;
-    private int _baseRenue;
+    private int _baseProfit;
     public int Level { get; private set; }
     public int LevelUpCost => (Level + 1) * _baseLevelUpCost;
-    public int RenueDelay { get; private set; }
+    public int ProfitDelay { get; private set; }
 
     public float DelayProgress { get; private set; }
 
@@ -20,7 +20,7 @@ public class Bussines
         float upgradesMul = _upgrades.Where(x => x.Purchased)
             .Select(x => x.Multiplier)
             .Aggregate(1f, (x, y) => x * y);
-        return Mathf.RoundToInt(Level * _baseRenue * upgradesMul);
+        return Mathf.RoundToInt(Level * _baseProfit * upgradesMul);
     }
 
     public bool LevelUpIsAvaliable(int balance) => LevelUpCost <= balance;
@@ -40,9 +40,9 @@ public class Bussines
     public void Update(float deltaTime)
     {
         DelayProgress += deltaTime;
-        if (DelayProgress >= RenueDelay)
+        if (DelayProgress >= ProfitDelay)
         {
-            DelayProgress -= RenueDelay;
+            DelayProgress -= ProfitDelay;
         }
     }
 }
