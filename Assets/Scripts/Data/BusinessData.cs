@@ -5,10 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BusinessData", menuName = "Data/Business")]
 public class BusinessData : ScriptableObject
 {
-    public NameKey Name;
-    public int Delay;
-    public int BaseCost;
-    public int BaseProfit;
-    public UpgradeData[] Upgrades;
+    [field: SerializeField] public NameKey Name { get; private set; }
+    [field: SerializeField] public int Delay { get; private set; }
+    [field: SerializeField] public int BaseCost { get; private set; }
+    [field: SerializeField] public int BaseProfit { get; private set; }
+    [field: SerializeField] public UpgradeData[] Upgrades { get; private set; }
 
 }

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ed5261ae5e0f04892367c22126ddd7, type: 3}
   m_Name: Business2
   m_EditorClassIdentifier: 
-  Name: 3
-  Delay: 6
-  BaseCost: 40
-  BaseProfit: 40
-  Upgrades:
+  <Name>k__BackingField: 3
+  <Delay>k__BackingField: 6
+  <BaseCost>k__BackingField: 40
+  <BaseProfit>k__BackingField: 40
+  <Upgrades>k__BackingField:
   - Name: 4
     Cost: 1200
     ProfitMultiplier: 100

@@ -18,10 +18,10 @@ public class UIUpgradeButton : MonoBehaviour
     private string _multiplierText;
     private string _costText;
 
-    public void Set(string name, float multiplier, int cost, Action onClick)
+    public void Set(string name, int multiplier, int cost, Action onClick)
     {
         _name = name;
-        _multiplierText = "Доход: +" + multiplier * 100 + "%";
+        _multiplierText = "Доход: +" + multiplier + "%";
         _costText = "Цена: $" + cost;
         _onClick = onClick;
         _button.onClick.RemoveAllListeners();
