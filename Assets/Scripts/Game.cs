@@ -29,7 +29,7 @@ public class Game : MonoBehaviour
             uIBusiness.Set(business, businessData,  _namesData);
             _businesses.Add(new BusinessPair(business, uIBusiness));
         }
-
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)_businessesRoot);
     }
     private void BlanceChanged(int balance)
     {

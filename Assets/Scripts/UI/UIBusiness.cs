@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIBusiness : MonoBehaviour
 {
@@ -22,5 +23,6 @@ public class UIBusiness : MonoBehaviour
             UIUpgradeButton uiUpgrade = Instantiate(_upgradePrefab, _upgradeRoot);
             uiUpgrade.Set(namesData.GetName(upgrade.Name), upgrade.ProfitMultiplier, upgrade.Cost, null);
         }
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)_upgradeRoot);
     }
 }
