@@ -16,10 +16,10 @@ MonoBehaviour:
   <Delay>k__BackingField: 10
   <BaseCost>k__BackingField: 200
   <BaseProfit>k__BackingField: 200
-  <Upgrades>k__BackingField:
-  - Name: 7
-    Cost: 6000
-    ProfitMultiplier: 100
-  - Name: 8
-    Cost: 20000
-    ProfitMultiplier: 150
+  _upgrades:
+  - <Name>k__BackingField: 7
+    <Cost>k__BackingField: 6000
+    <ProfitMultiplier>k__BackingField: 100
+  - <Name>k__BackingField: 8
+    <Cost>k__BackingField: 20000
+    <ProfitMultiplier>k__BackingField: 150

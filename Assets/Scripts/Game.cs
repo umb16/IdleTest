@@ -20,8 +20,6 @@ public class Game : MonoBehaviour
     private void Awake()
     {
         _balance.Changed += BlanceChanged;
-        _businnessListData = Instantiate(_businnessListData);
-        _namesData = Instantiate(_namesData);
         foreach (var businessData in _businnessListData.BusinessDatas)
         {
             Business business = new Business(businessData.BaseCost, businessData.BaseProfit,

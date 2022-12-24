@@ -16,7 +16,7 @@ public class UIBusiness : MonoBehaviour
     public void Set(Business business, BusinessData businessData, NamesData namesData)
     {
         _name.text = namesData.GetName(businessData.Name);
-        for (int i = 0; i < businessData.Upgrades.Length; i++)
+        for (int i = 0; i < businessData.Upgrades.Count; i++)
         {
             UpgradeData upgrade = businessData.Upgrades[i];
             UIUpgradeButton uiUpgrade = Instantiate(_upgradePrefab, _upgradeRoot);

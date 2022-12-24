@@ -21,15 +21,15 @@ public class Business
 
     private Upgrade[] _upgrades;
 
-    public Business(int baseLevelUpCost, int baseProfit, int profitDelay, UpgradeData[] upgradeDatas, SpecialProperty<int> balance)
+    public Business(int baseLevelUpCost, int baseProfit, int profitDelay, IList<UpgradeData> upgradeDatas, SpecialProperty<int> balance)
     {
         _balance = balance;
         _balance.Changed += BalanceChanged;
         _baseLevelUpCost = baseLevelUpCost;
         _baseProfit = baseProfit;
         ProfitDelay = profitDelay;
-        _upgrades = new Upgrade[upgradeDatas.Length];
-        for (int i = 0; i < upgradeDatas.Length; i++)
+        _upgrades = new Upgrade[upgradeDatas.Count];
+        for (int i = 0; i < upgradeDatas.Count; i++)
         {
             var upgrade = upgradeDatas[i];
             _upgrades[i] = new Upgrade(upgrade.Cost, upgrade.RealMultiplier);

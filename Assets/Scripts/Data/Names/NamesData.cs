@@ -12,6 +12,10 @@ public class NamesData : ScriptableObject
 
     public string GetName(NameKey key)
     {
+        if (_names == null)
+        {
+            _names = _data.ToDictionary(x => x.NameKey, x => x.Name);
+        }
         if (_names.TryGetValue(key, out string name))
         {
             return name;
@@ -23,12 +27,7 @@ public class NamesData : ScriptableObject
     {
         if (_data.Select(x => x.NameKey).Distinct().Count() < _data.Length)
         {
-            Debug.LogError("NamesData " + name + "содержит постор€ющиес€ элементы");
+            Debug.LogError("NamesData " + name + "содержит повтор€ющиес€ элементы");
         }
-    }
-    private void Awake()
-    {
-        if (_data != null)
-            _names = _data.ToDictionary(x => x.NameKey, x => x.Name);
     }
 }

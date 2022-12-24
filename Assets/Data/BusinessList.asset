@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b47a013742d8ca4a880bc7c0ab1972a, type: 3}
   m_Name: BusinessList
   m_EditorClassIdentifier: 
-  BusinessDatas:
+  _businessDatas:
   - {fileID: 11400000, guid: ab9dd1a54ed2db24c8937a972b673807, type: 2}
   - {fileID: 11400000, guid: eabd92bfa15cb3f4db22b6a0f0f7415f, type: 2}
   - {fileID: 11400000, guid: a4f00646efceff348b70db7a03696966, type: 2}

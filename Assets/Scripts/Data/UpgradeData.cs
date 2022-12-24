@@ -6,10 +6,8 @@ using UnityEngine;
 [Serializable]
 public class UpgradeData
 {
-    public NameKey Name;
-    [Header("Цена улучшения")]
-    public int Cost;
-    [Header("Множитель в процентах")]
-    public int ProfitMultiplier;
+    [field: SerializeField] public NameKey Name { get; private set; }
+    [field: SerializeField] public int Cost { get; private set; }
+    [field: SerializeField] public int ProfitMultiplier { get; private set; }
     public float RealMultiplier => ProfitMultiplier * .01f + 1;
 }
