@@ -275,6 +275,9 @@ MonoBehaviour:
   _upgradePrefab: {fileID: -4267689287921149604, guid: e30349a57d55cee40a5f5ea619f93b19, type: 3}
   _upgradeRoot: {fileID: 1649266757057463676}
   _name: {fileID: 1649266758660693056}
+  _progressBar: {fileID: 3864485861475650966}
+  _levelUpButton: {fileID: 1649266757883854185}
+  _levelUpButtonText: {fileID: 1649266757550582365}
   _levelText: {fileID: 1649266756797730549}
   _profitText: {fileID: 1649266757312613065}
 --- !u!1 &1649266757057463677
@@ -636,7 +639,7 @@ GameObject:
   - component: {fileID: 1649266757883854184}
   - component: {fileID: 1649266757883854185}
   m_Layer: 5
-  m_Name: Button
+  m_Name: LevelUpButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1048,3 +1051,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2619296698679943923, guid: 47e2a75349ab34142a6afcb2437e040a, type: 3}
   m_PrefabInstance: {fileID: 3655448558265049615}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3864485861475650966 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 512190390025891737, guid: 47e2a75349ab34142a6afcb2437e040a, type: 3}
+  m_PrefabInstance: {fileID: 3655448558265049615}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a29d570b793c529458104896a68fe301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

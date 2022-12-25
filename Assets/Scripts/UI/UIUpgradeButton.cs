@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,30 +19,45 @@ public class UIUpgradeButton : MonoBehaviour
     private string _multiplierText;
     private string _costText;
 
-    public void Set(string name, int multiplier, int cost, Action onClick)
+    public void Set(string name, int multiplier, int cost, Upgrade upgrade)
     {
         _name = name;
         _multiplierText = "Доход: +" + multiplier + "%";
         _costText = "Цена: $" + cost;
-        _onClick = onClick;
         _button.onClick.RemoveAllListeners();
-        _button.onClick.AddListener(OnClick);
-        UpdateText(false);
+        _button.onClick.AddListener(upgrade.PurchaseUpgrade);
+        UniTaskAsyncEnumerable.EveryValueChanged(upgrade, x => x.Status).Subscribe(SetStatus);
     }
 
-    public void SetDisabled()
+    private void SetStatus(UpgradeStatus status)
+    {
+        switch (status)
+        {
+            case UpgradeStatus.Purchased:
+                SetPurchased();
+                break;
+            case UpgradeStatus.AvailableForPurchase:
+                SetEnabled();
+                break;
+            default:
+                SetDisabled();
+                break;
+        }
+    }
+
+    private void SetDisabled()
     {
         _button.interactable = false;
         UpdateText(false);
     }
 
-    public void SetEnabled()
+    private void SetEnabled()
     {
         _button.interactable = true;
         UpdateText(false);
     }
 
-    public void SetPurchased()
+    private void SetPurchased()
     {
         _button.interactable = false;
         UpdateText(true);
@@ -62,10 +78,4 @@ public class UIUpgradeButton : MonoBehaviour
                                "\n" + _costText;
         }
     }
-
-    private void OnClick()
-    {
-        _onClick.Invoke();
-    }
-
 }

@@ -8,21 +8,22 @@ public class Business
 {
     private int _baseLevelUpCost;
     private int _baseProfit;
-
-    public event Action LvlUp;
-    public event Action<int, UpgradeStatus> UpgradeStatusChanged;
-    public int Level { get; private set; }
-    public int LevelUpCost => (Level + 1) * _baseLevelUpCost;
-    public int ProfitDelay { get; private set; }
-    public float DelayProgressInSeconds { get; private set; }
-    public float DelayProgressNormalized => DelayProgressInSeconds / ProfitDelay;
-
     private Upgrade[] _upgrades;
     private Game _game;
 
+    public int LevelUpCost => (Level + 1) * _baseLevelUpCost;
+    public bool LevelUpIsAvaliable => LevelUpCost <= _game.Balance;
+    public int Level { get; private set; }
+
+    public float DelayProgressNormalized => DelayProgressInSeconds / ProfitDelay;
+    public int ProfitDelay { get; private set; }
+    public float DelayProgressInSeconds { get; private set; }
+    public int Profit => GetProfit();
+
     public Business(int baseLevelUpCost, int baseProfit, int profitDelay,
-        IList<UpgradeData> upgradeDatas, Game game)
+        IList<UpgradeData> upgradeDatas, int startLevel, Game game)
     {
+        Level = startLevel;
         _game = game;
         _baseLevelUpCost = baseLevelUpCost;
         _baseProfit = baseProfit;
@@ -31,59 +32,41 @@ public class Business
         for (int i = 0; i < upgradeDatas.Count; i++)
         {
             var upgrade = upgradeDatas[i];
-            _upgrades[i] = new Upgrade(upgrade.Cost, upgrade.RealMultiplier);
+            _upgrades[i] = new Upgrade(upgrade.Cost, upgrade.RealMultiplier, _game);
         }
     }
 
-    private void BalanceChanged(int balance)
+    public void SetLevel(int value)
     {
-        for (int i = 0; i < _upgrades.Length; i++)
-        {
-            Upgrade upgrade = _upgrades[i];
-            var status = GetUpgradeStatus(i, balance);
-            if (upgrade.Status != status)
-            {
-                upgrade.Status = status;
-                UpgradeStatusChanged.Invoke(i, status);
-            }
-        }
+        Level = value;
     }
-
-    public int GetProfit()
-    {
-        float upgradesMul = _upgrades.Where(x => x.Status == UpgradeStatus.Purchased)
-            .Select(x => x.Multiplier)
-            .Aggregate(1f, (x, y) => x * y);
-        return Mathf.RoundToInt(Level * _baseProfit * upgradesMul);
-    }
-
     public void LevelUp()
     {
         _game.AddBalance(-LevelUpCost);
         Level++;
-        LvlUp.Invoke();
     }
 
-    public bool LevelUpIsAvaliable(int balance) => LevelUpCost <= balance;
-    public UpgradeStatus GetUpgradeStatus(int index, int balance)
+    public Upgrade GetUpgrade(int index)
     {
-        Upgrade upgrade = _upgrades[index];
-        if (_upgrades[index].Status == UpgradeStatus.Purchased)
-        {
-            return UpgradeStatus.Purchased;
-        }
-        if (upgrade.Cost <= balance)
-        {
-            return UpgradeStatus.AvailableForPurchase;
-        }
-        return UpgradeStatus.NotAvaliable;
+        return _upgrades[index];
     }
+    
     public void Update(float deltaTime)
     {
+        if (Level == 0)
+            return;
         DelayProgressInSeconds += deltaTime;
         if (DelayProgressInSeconds >= ProfitDelay)
         {
             DelayProgressInSeconds -= ProfitDelay;
+            _game.AddBalance(GetProfit());
         }
+    }
+    private int GetProfit()
+    {
+        float upgradesMul = _upgrades.Where(x => x.Purchased)
+            .Select(x => x.Multiplier)
+            .Aggregate(1f, (x, y) => x * y);
+        return Mathf.RoundToInt(Level * _baseProfit * upgradesMul);
     }
 }
