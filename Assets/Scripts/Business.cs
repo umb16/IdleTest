@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,17 +14,16 @@ public class Business
     public int Level { get; private set; }
     public int LevelUpCost => (Level + 1) * _baseLevelUpCost;
     public int ProfitDelay { get; private set; }
-
-    private SpecialProperty<int> _balance;
-
-    public float DelayProgress { get; private set; }
+    public float DelayProgressInSeconds { get; private set; }
+    public float DelayProgressNormalized => DelayProgressInSeconds / ProfitDelay;
 
     private Upgrade[] _upgrades;
+    private Game _game;
 
-    public Business(int baseLevelUpCost, int baseProfit, int profitDelay, IList<UpgradeData> upgradeDatas, SpecialProperty<int> balance)
+    public Business(int baseLevelUpCost, int baseProfit, int profitDelay,
+        IList<UpgradeData> upgradeDatas, Game game)
     {
-        _balance = balance;
-        _balance.Changed += BalanceChanged;
+        _game = game;
         _baseLevelUpCost = baseLevelUpCost;
         _baseProfit = baseProfit;
         ProfitDelay = profitDelay;
@@ -60,7 +59,7 @@ public class Business
 
     public void LevelUp()
     {
-        _balance.Value -= LevelUpCost;
+        _game.AddBalance(-LevelUpCost);
         Level++;
         LvlUp.Invoke();
     }
@@ -81,10 +80,10 @@ public class Business
     }
     public void Update(float deltaTime)
     {
-        DelayProgress += deltaTime;
-        if (DelayProgress >= ProfitDelay)
+        DelayProgressInSeconds += deltaTime;
+        if (DelayProgressInSeconds >= ProfitDelay)
         {
-            DelayProgress -= ProfitDelay;
+            DelayProgressInSeconds -= ProfitDelay;
         }
     }
 }

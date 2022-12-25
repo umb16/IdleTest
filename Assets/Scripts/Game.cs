@@ -15,15 +15,14 @@ public class Game : MonoBehaviour
     private List<BusinessPair> _businesses = new List<BusinessPair>();
 
     [SerializeField] private TMP_Text _balanceText;
-    private SpecialProperty<int> _balance = new SpecialProperty<int>(0);
+    public int Balance { get; private set; }
 
     private void Awake()
     {
-        _balance.Changed += BlanceChanged;
         foreach (var businessData in _businnessListData.BusinessDatas)
         {
             Business business = new Business(businessData.BaseCost, businessData.BaseProfit,
-                businessData.Delay, businessData.Upgrades, _balance);
+                businessData.Delay, businessData.Upgrades, this);
 
             UIBusiness uIBusiness = Instantiate(_bussinesPrefab, _businessesRoot);
             uIBusiness.Set(business, businessData,  _namesData);
@@ -31,8 +30,17 @@ public class Game : MonoBehaviour
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)_businessesRoot);
     }
-    private void BlanceChanged(int balance)
+    public void AddBalance(int value)
     {
-        _balanceText.text = "$" + balance;
+        Balance += value;
+        _balanceText.text = "$" + Balance;
+    }
+
+    private void Update()
+    {
+        foreach (var pair in _businesses)
+        {
+            pair.Business.Update(Time.deltaTime);
+        }
     }
 }
