@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SaveLoadSystem : MonoBehaviour
 {
-    private string GetSaveString(Business business)
+    private void GetSaveString(Business business)
     {
         
     }

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 public class Business
@@ -56,6 +58,30 @@ public class Business
             _game.AddBalance(GetProfit());
         }
     }
+
+    public string GetSave()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append(Level);
+        sb.Append("," + DelayProgressInSeconds.ToString("0.##",CultureInfo.InvariantCulture));
+        foreach (var upgrade in _upgrades)
+        {
+            sb.Append("," + (upgrade.Purchased?1:0));
+        }
+        return sb.ToString();
+    }
+
+    public void SetSave(string data)
+    {
+        var fields = data.Split(',');
+        Level = int.Parse(fields[0]);
+        DelayProgressInSeconds = float.Parse(fields[1], CultureInfo.InvariantCulture);
+        for (int i = 0; i < _upgrades.Length; i++)
+        {
+            _upgrades[i].Purchased = int.Parse(fields[2 + i]) == 1;
+        }
+    }
+
     private int GetProfit()
     {
         float upgradesMul = _upgrades.Where(x => x.Purchased)
