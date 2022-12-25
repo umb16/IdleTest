@@ -2,6 +2,9 @@
 {
     public int Cost { get; private set; }
     public float Multiplier { get; private set; }
+
+    private Business _business;
+
     public bool Purchased { get; set; }
 
     private Game _game;
@@ -10,13 +13,16 @@
     {
         get
         {
-            if (Purchased)
+            if (_business.Level > 0)
             {
-                return UpgradeStatus.Purchased;
-            }
-            if (Cost <= _game.Balance)
-            {
-                return UpgradeStatus.AvailableForPurchase;
+                if (Purchased)
+                {
+                    return UpgradeStatus.Purchased;
+                }
+                if (Cost <= _game.Balance)
+                {
+                    return UpgradeStatus.AvailableForPurchase;
+                }
             }
             return UpgradeStatus.NotAvaliable;
         }
@@ -29,10 +35,11 @@
     }
 
 
-    public Upgrade(int cost, float multiplier, Game game)
+    public Upgrade(int cost, float multiplier, Game game, Business business)
     {
         Cost = cost;
         Multiplier = multiplier;
+        _business = business;
         _game = game;
     }
 }

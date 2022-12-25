@@ -1,5 +1,3 @@
-using System;
-
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,9 +9,9 @@ public class Business
     private Upgrade[] _upgrades;
     private Game _game;
 
+    public int Level { get; private set; }
     public int LevelUpCost => (Level + 1) * _baseLevelUpCost;
     public bool LevelUpIsAvaliable => LevelUpCost <= _game.Balance;
-    public int Level { get; private set; }
 
     public float DelayProgressNormalized => DelayProgressInSeconds / ProfitDelay;
     public int ProfitDelay { get; private set; }
@@ -32,14 +30,10 @@ public class Business
         for (int i = 0; i < upgradeDatas.Count; i++)
         {
             var upgrade = upgradeDatas[i];
-            _upgrades[i] = new Upgrade(upgrade.Cost, upgrade.RealMultiplier, _game);
+            _upgrades[i] = new Upgrade(upgrade.Cost, upgrade.RealMultiplier, _game, this);
         }
     }
 
-    public void SetLevel(int value)
-    {
-        Level = value;
-    }
     public void LevelUp()
     {
         _game.AddBalance(-LevelUpCost);
