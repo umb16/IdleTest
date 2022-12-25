@@ -22,6 +22,7 @@ public class GameStarter : MonoBehaviour
 
     private void Awake()
     {
+        Application.targetFrameRate = 60;
         StartNewGame();
         TryLoadSave();
     }
@@ -57,9 +58,14 @@ public class GameStarter : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    private void OnApplicationQuit()
     {
         PlayerPrefs.SetString(SAVE_KEY, _game.GetSave());
+    }
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+            PlayerPrefs.SetString(SAVE_KEY, _game.GetSave());
     }
 
     private void OnBalanceChanged(int balance)
