@@ -27,7 +27,6 @@ public class Game
 
     public bool TrySetSave(string data)
     {
-        Debug.Log(data);
         try
         {
             var fields = data.Split(';');

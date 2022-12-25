@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks.Linq;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,11 +14,19 @@ public class GameStarter : MonoBehaviour
 
     [SerializeField] private UIBusiness _bussinesPrefab;
     [SerializeField] private Transform _businessesRoot;
+
     [SerializeField] private TMP_Text _balanceText;
 
     private Game _game;
+    private List<UIBusiness> _uiBusinesses = new List<UIBusiness>();
 
     private void Awake()
+    {
+        StartNewGame();
+        TryLoadSave();
+    }
+
+    private void StartNewGame()
     {
         _game = new Game();
         for (int i = 0; i < _businnessListData.BusinessDatas.Count; i++)
@@ -30,11 +39,11 @@ public class GameStarter : MonoBehaviour
 
             UIBusiness uIBusiness = Instantiate(_bussinesPrefab, _businessesRoot);
             uIBusiness.Set(business, businessData.Data, _namesData);
+            _uiBusinesses.Add(uIBusiness);
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)_businessesRoot);
 
         UniTaskAsyncEnumerable.EveryValueChanged(_game, x => x.Balance).Subscribe(OnBalanceChanged);
-        TryLoadSave();
     }
 
     private void TryLoadSave()
@@ -64,5 +73,15 @@ public class GameStarter : MonoBehaviour
         {
             business.Update(Time.deltaTime);
         }
+    }
+
+    public void Restart()
+    {
+        foreach (var business in _uiBusinesses)
+        {
+            Destroy(business.gameObject);
+        }
+        _uiBusinesses.Clear();
+        StartNewGame();
     }
 }

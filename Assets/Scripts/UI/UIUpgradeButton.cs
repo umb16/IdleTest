@@ -12,8 +12,8 @@ public class UIUpgradeButton : MonoBehaviour
 {
     [SerializeField] private Button _button;
     [SerializeField] private TMP_Text _buttonText;
-
-    private Action _onClick;
+    [SerializeField] private Color _purchasedColor;
+    [SerializeField] private Color _diasabledColor;
 
     private string _name;
     private string _multiplierText;
@@ -48,6 +48,11 @@ public class UIUpgradeButton : MonoBehaviour
     private void SetDisabled()
     {
         _button.interactable = false;
+
+        var colors = _button.colors;
+        colors.disabledColor = _diasabledColor;
+        _button.colors = colors;
+
         UpdateText(false);
     }
 
@@ -60,6 +65,9 @@ public class UIUpgradeButton : MonoBehaviour
     private void SetPurchased()
     {
         _button.interactable = false;
+        var colors = _button.colors;
+        colors.disabledColor = _purchasedColor;
+        _button.colors = colors;
         UpdateText(true);
     }
 

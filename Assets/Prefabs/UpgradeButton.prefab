@@ -236,7 +236,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.9568628, g: 0.7843138, b: 0.54901963, a: 1}
+    m_NormalColor: {r: 0.64705884, g: 0.77647066, b: 0.69411767, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -273,3 +273,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _button: {fileID: 6565391265685340888}
   _buttonText: {fileID: 6565391264923395663}
+  _purchasedColor: {r: 0.9568628, g: 0.7843138, b: 0.54901963, a: 1}
+  _diasabledColor: {r: 0.8235295, g: 0.6862745, b: 0.68235296, a: 1}

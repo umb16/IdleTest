@@ -19,6 +19,7 @@ public class UIBusiness : MonoBehaviour
     [SerializeField] private TMP_Text _levelUpButtonText;
     [SerializeField] private TMP_Text _levelText;
     [SerializeField] private TMP_Text _profitText;
+    [SerializeField] private TMP_Text _profitPerSecondText;
 
     private Business _business;
 
@@ -50,8 +51,10 @@ public class UIBusiness : MonoBehaviour
 
     private void OnProfitChanged(int profit)
     {
-        _profitText.text = "Доход" +
+        _profitText.text = "Доход\n" +
                    _business.Profit;
+        _profitPerSecondText.text = "Д/с\n" +
+                                    Mathf.RoundToInt(_business.Profit / _business.ProfitDelay);
     }
 
     private void OnLevelUpStatusChanged(bool levelUpAvaliable)
